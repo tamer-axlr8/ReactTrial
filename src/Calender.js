@@ -10,10 +10,17 @@ export default class Calender extends React.Component {
 
   calendarComponentRef = React.createRef()
   state = {
-    calendarWeekends: true,
     calendarEvents: [ // initial event data
-      { title: 'Event Now', start: new Date("2020-02-13T04:00:00"), end: new Date("2020-02-13T04:00:00"), allDay:false }
+      { title: 'Event Now', start: new Date("2020-02-15T04:00:00"), end: new Date("2020-02-15T04:15:00") },
+      { title: 'Event Now', start: new Date("2020-02-15T04:00:00"), end: new Date("2020-02-15T06:00:00") },
+      { title: 'Event Now', start: new Date("2020-02-15T04:00:00"), end: new Date("2020-02-15T05:00:00") },
+      { title: 'Event Now', start: new Date("2020-02-15T04:00:00"), end: new Date("2020-02-15T04:30:00") },
+      { title: 'Event Now', start: new Date("2020-02-15T04:30:00"), end: new Date("2020-02-15T05:00:00") },
     ]
+  }
+
+  componentDidUpdate(){
+    window.dispatchEvent(new Event('resize'))
   }
 
   render() {
@@ -26,17 +33,22 @@ export default class Calender extends React.Component {
         </div>
         <div className='demo-app-calendar'>
           <FullCalendar
-            defaultView="dayGridMonth"
+            defaultView="timeGrid"
             header={{
-              left: 'prev,next today',
+              left: 'prev,next,today',
               center: 'title',
-              right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+              right: ''
             }}
-            plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]}
+            contentHeight={'auto'}
+            aspectRatio={0.5}
+            timeGridEventMinHeight={200}
+            slotEventOverlap={false}
+            selectable={true}
+            plugins={[timeGridPlugin, interactionPlugin ]}
             ref={ this.calendarComponentRef }
-            weekends={ this.state.calendarWeekends }
             events={ this.state.calendarEvents }
             dateClick={ this.handleDateClick }
+            slotDuration={'01:00:00'}
             />
         </div>
       </div>
@@ -52,18 +64,6 @@ export default class Calender extends React.Component {
   gotoPast = () => {
     let calendarApi = this.calendarComponentRef.current.getApi()
     calendarApi.gotoDate('2000-01-01') // call a method on the Calendar object
-  }
-
-  handleDateClick = (arg) => {
-    if (('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-      this.setState({  // add new event data
-        calendarEvents: this.state.calendarEvents.concat({ // creates a new array
-          title: 'New Event',
-          start: arg.date,
-          allDay: arg.allDay
-        })
-      })
-    }
   }
 
 }
