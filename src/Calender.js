@@ -1,21 +1,21 @@
 import React from 'react'
 import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction' // needed for dayClick
+import interactionPlugin from '@fullcalendar/interaction'
+import listPlugin from '@fullcalendar/list';
 
-import './Calender.scss'
+/* import './Calender.scss' */
 
 export default class Calender extends React.Component {
 
   calendarComponentRef = React.createRef()
   state = {
     calendarEvents: [ // initial event data
-      { title: 'Event Now', start: new Date("2020-02-15T04:00:00"), end: new Date("2020-02-15T04:15:00") },
-      { title: 'Event Now', start: new Date("2020-02-15T04:00:00"), end: new Date("2020-02-15T06:00:00") },
-      { title: 'Event Now', start: new Date("2020-02-15T04:00:00"), end: new Date("2020-02-15T05:00:00") },
-      { title: 'Event Now', start: new Date("2020-02-15T04:00:00"), end: new Date("2020-02-15T04:30:00") },
-      { title: 'Event Now', start: new Date("2020-02-15T04:30:00"), end: new Date("2020-02-15T05:00:00") },
+      { title: 'Event Now', start: new Date("2020-02-24T04:00:00"), end: new Date("2020-02-24T04:05:00") },
+      { title: 'Event Now', start: new Date("2020-02-24T04:05:00"), end: new Date("2020-02-24T04:10:00") },
+      { title: 'Event Now', start: new Date("2020-02-24T04:10:00"), end: new Date("2020-02-24T04:15:00") },
+      { title: 'Event Now', start: new Date("2020-02-24T04:00:00"), end: new Date("2020-02-24T04:30:00") },
+      { title: 'Event Now', start: new Date("2020-02-24T04:30:00"), end: new Date("2020-02-24T05:00:00") },
     ]
   }
 
@@ -26,29 +26,21 @@ export default class Calender extends React.Component {
   render() {
     return (
       <div className='demo-app'>
-        <div className='demo-app-top'>
-          <button onClick={ this.toggleWeekends }>toggle weekends</button>&nbsp;
-          <button onClick={ this.gotoPast }>go to a date in the past</button>&nbsp;
-          (also, click a date/time to add an event)
-        </div>
         <div className='demo-app-calendar'>
           <FullCalendar
-            defaultView="timeGrid"
+            defaultView="listDay"
             header={{
               left: 'prev,next,today',
               center: 'title',
-              right: ''
+              right: 'timeGridDay,listDay'
             }}
-            contentHeight={'auto'}
-            aspectRatio={0.5}
-            timeGridEventMinHeight={200}
             slotEventOverlap={false}
             selectable={true}
-            plugins={[timeGridPlugin, interactionPlugin ]}
+            plugins={[timeGridPlugin, interactionPlugin, listPlugin ]}
             ref={ this.calendarComponentRef }
             events={ this.state.calendarEvents }
             dateClick={ this.handleDateClick }
-            slotDuration={'01:00:00'}
+            slotDuration={'00:15:00'}
             />
         </div>
       </div>

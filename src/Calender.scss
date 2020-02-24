@@ -2,5 +2,20 @@
 @import '~@fullcalendar/daygrid/main.css';
 @import '~@fullcalendar/timegrid/main.css';
 .fc-time-grid .fc-slats td{
-    height: 200px;
+    height: 100px;
 }
+
+.rbc-timeslot-group{
+    height: 100px;
+}
+
+
+/* .rbc-events-container {
+    display: grid;
+    grid-template-rows: repeat(15, 100px);
+  }
+  
+  .rbc-day-slot .rbc-event {
+    position: static;
+  }
+   */
